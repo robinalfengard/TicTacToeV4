@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b115c029-79e8-4823-81da-c781dc553119" name="Changes" comment="minor reset modification">
+    <list default="true" id="b115c029-79e8-4823-81da-c781dc553119" name="Changes" comment="working again">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/tictactoev4/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/tictactoev4/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +86,14 @@
       <option name="presentableId" value="LOCAL−00004" />
       <updated>1698249170788</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL−00005" summary="working again">
+      <option name="closed" value="true" />
+      <created>1698252033696</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1698252033696</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -94,6 +101,7 @@
     <MESSAGE value="reset game  now works" />
     <MESSAGE value="win condition modified" />
     <MESSAGE value="minor reset modification" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor reset modification" />
+    <MESSAGE value="working again" />
+    <option name="LAST_COMMIT_MESSAGE" value="working again" />
   </component>
 </project>
