@@ -58,7 +58,7 @@ public class Model {
         box7 = new SimpleObjectProperty<>(availableSpace);
         box8 = new SimpleObjectProperty<>(availableSpace);
         box9 = new SimpleObjectProperty<>(availableSpace);
-/*        listOfBoxes.add(box1);
+        listOfBoxes.add(box1);
         listOfBoxes.add(box2);
         listOfBoxes.add(box3);
         listOfBoxes.add(box4);
@@ -66,8 +66,8 @@ public class Model {
         listOfBoxes.add(box6);
         listOfBoxes.add(box7);
         listOfBoxes.add(box8);
-        listOfBoxes.add(box9);*/
-        availableMoves = factoryMethods.getAvailableMoves();
+        listOfBoxes.add(box9);
+        initializeAvailableMoves();
     }
 
 
@@ -77,18 +77,26 @@ public class Model {
            if (isValidMove(boxId))
                userMove(boxId);
         }
-
-
-
     }
+
+    private void initializeAvailableMoves(){
+        availableMoves = factoryMethods.getAvailableMoves();
+    }
+
     public void resetGame() {
         resetBoxes();
         resetAvailableMoves();
         setIsButtonVisible(false);
     }
 
-    private void resetAvailableMoves() {
+    private void resetBoxes(){
+        listOfBoxes.forEach(this::markBoxAvailable);
+        userMoves.clear();
+        computerMoves.clear();
+    }
 
+    private void resetAvailableMoves() {
+        initializeAvailableMoves();
     }
 
     public void resetScore() {
@@ -147,11 +155,7 @@ public class Model {
 
     }
 
-    private void resetBoxes(){
-        listOfBoxes.forEach(
-                this::markBoxAvailable
-        );
-    }
+
 
 
 
