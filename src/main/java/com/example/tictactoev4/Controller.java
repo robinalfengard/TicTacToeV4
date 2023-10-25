@@ -1,9 +1,27 @@
 package com.example.tictactoev4;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
-public class HelloController {
+public class Controller {
+    private Model model = new Model();
 
 
+    public Model getModel() {
+        return model;
+    }
+
+    public void boxClicked(MouseEvent event) {
+        ImageView boxClicked = (ImageView) event.getSource();
+        String  boxId =  boxClicked.getId();
+        model.userClick(boxId);
+    }
+
+    public void playAgain(MouseEvent event) {
+        model.resetGame();
+    }
+
+    public void resetScore(MouseEvent event) {
+        model.resetScore();
+    }
 }

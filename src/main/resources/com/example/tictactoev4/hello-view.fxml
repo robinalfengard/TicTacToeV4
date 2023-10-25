@@ -1,16 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.tictactoev4.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.tictactoev4.Controller">
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Label style="-fx-font-size: 30px;" text="Tic Tac Toe Game!" alignment="BASELINE_CENTER"/>
+    <Label  text="${controller.model.winningMessage}"/>
+    <VBox alignment="CENTER" >
+        <Label text="${controller.model.printoutScoreForUser}"/>
+        <Label text="${controller.model.printoutScoreForComputer}" />
+    </VBox>
+    <HBox alignment="CENTER" >
+        <Button onMouseClicked="#playAgain" text="Play Again?" visible="${controller.model.isButtonVisible}"/>
+        <Button   onMouseClicked="#resetScore" text="Reset Score?" visible="${controller.model.isButtonVisible}"/>
+
+    </HBox>
+
+    <GridPane alignment="CENTER">
+        <!-- Row 1 -->
+        <StackPane GridPane.rowIndex="0" GridPane.columnIndex="0">
+            <BorderPane style="-fx-border-color: black; -fx-border-width: 2px;">
+                <center>
+                    <ImageView fx:id="box1" onMouseClicked="#boxClicked" image="${controller.model.box1}"/>
+                </center>
+            </BorderPane>
+        </StackPane>
+
+        <StackPane GridPane.rowIndex="0" GridPane.columnIndex="1">
+            <BorderPane style="-fx-border-color: black; -fx-border-width: 2px;">
+                <center>
+                    <ImageView fx:id="box2" onMouseClicked="#boxClicked" image="${controller.model.box2}"/>
+                </center>
+            </BorderPane>
+        </StackPane>
+
+        <StackPane GridPane.rowIndex="0" GridPane.columnIndex="2">
+            <BorderPane style="-fx-border-color: black; -fx-border-width: 2px;">
+                <center>
+                    <ImageView fx:id="box3" onMouseClicked="#boxClicked" image="${controller.model.box3}"/>
+                </center>
+            </BorderPane>
+        </StackPane>
+
+        <!-- Row 2 -->
+        <StackPane GridPane.rowIndex="1" GridPane.columnIndex="0">
+            <BorderPane style="-fx-border-color: black; -fx-border-width: 2px;">
+                <center>
+                    <ImageView fx:id="box4" onMouseClicked="#boxClicked" image="${controller.model.box4}"/>
+                </center>
+            </BorderPane>
+        </StackPane>
+
+        <StackPane GridPane.rowIndex="1" GridPane.columnIndex="1">
+            <BorderPane style="-fx-border-color: black; -fx-border-width: 2px;">
+                <center>
+                    <ImageView fx:id="box5" onMouseClicked="#boxClicked" image="${controller.model.box5}"/>
+                </center>
+            </BorderPane>
+        </StackPane>
+
+        <StackPane GridPane.rowIndex="1" GridPane.columnIndex="2">
+            <BorderPane style="-fx-border-color: black; -fx-border-width: 2px;">
+                <center>
+                    <ImageView fx:id="box6" onMouseClicked="#boxClicked" image="${controller.model.box6}"/>
+                </center>
+            </BorderPane>
+        </StackPane>
+
+        <!-- Row 3 -->
+        <StackPane GridPane.rowIndex="2" GridPane.columnIndex="0">
+            <BorderPane style="-fx-border-color: black; -fx-border-width: 2px;">
+                <center>
+                    <ImageView fx:id="box7" onMouseClicked="#boxClicked" image="${controller.model.box7}"/>
+                </center>
+            </BorderPane>
+        </StackPane>
+
+        <StackPane GridPane.rowIndex="2" GridPane.columnIndex="1">
+            <BorderPane style="-fx-border-color: black; -fx-border-width: 2px;">
+                <center>
+                    <ImageView fx:id="box8" onMouseClicked="#boxClicked" image="${controller.model.box8}"/>
+                </center>
+            </BorderPane>
+        </StackPane>
+
+        <StackPane GridPane.rowIndex="2" GridPane.columnIndex="2">
+            <BorderPane style="-fx-border-color: black; -fx-border-width: 2px;">
+                <center>
+                    <ImageView fx:id="box9" onMouseClicked="#boxClicked" image="${controller.model.box9}"/>
+                </center>
+            </BorderPane>
+        </StackPane>
+    </GridPane>
 </VBox>
