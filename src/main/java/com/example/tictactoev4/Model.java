@@ -3,10 +3,8 @@ import javafx.beans.property.*;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 
 // metod som kan avgöra om man får klicka + test isValid
@@ -76,6 +74,7 @@ public class Model {
         if(!isGameOver()){
            if (isValidMove(boxId))
                userMove(boxId);
+            System.out.println(availableMoves);
         }
     }
 
@@ -83,13 +82,14 @@ public class Model {
         availableMoves = factoryMethods.getAvailableMoves();
     }
 
-    public void resetGame() {
+    public void restartGame() {
         resetBoxes();
         resetAvailableMoves();
         setIsButtonVisible(false);
     }
 
     private void resetBoxes(){
+        resetScore();
         listOfBoxes.forEach(this::markBoxAvailable);
         userMoves.clear();
         computerMoves.clear();
@@ -152,7 +152,7 @@ public class Model {
     }
 
     private void disableAllMoves() {
-
+        availableMoves.clear();
     }
 
 
@@ -172,10 +172,13 @@ public class Model {
 
     public boolean isGameOver() {
         if (winCheck(computerMoves)) {
+            disableAllMoves();
             return computerWin();
         } else if (winCheck(userMoves)) {
+            disableAllMoves();
             return userWin();
         }   else if (availableMoves.isEmpty()) {
+            disableAllMoves();
             return tie();
         }
         return false;

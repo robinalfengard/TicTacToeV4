@@ -18,7 +18,7 @@ public class Controller {
     }
 
     public void playAgain(MouseEvent event) {
-        model.resetGame();
+        model.restartGame();
     }
 
     public void resetScore(MouseEvent event) {
