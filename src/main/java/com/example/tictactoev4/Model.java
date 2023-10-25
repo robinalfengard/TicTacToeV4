@@ -67,7 +67,6 @@ public class Model {
     }
 
 
-    //todo disable  boxes  when won
 
     // Inputs from controller
     public void userClick(String boxId) {
@@ -76,8 +75,6 @@ public class Model {
             isGameOver();
             initializeComputerMove();
         }
-
-
     }
 
     private void initializeAvailableMoves(){
@@ -188,30 +185,27 @@ public class Model {
 
 
     // OUTCOMES
-    public boolean userWin(){
+    public void userWin(){
         disableAllMoves();
         setWinningMessage("You won this match!");
         setUserScore(userScore+=1);
         setPrintoutScoreForUser("Your wins: " + userScore);
         setIsButtonVisible(true);
-        return true;
     }
 
-    public boolean computerWin(){
+    public void computerWin(){
         disableAllMoves();
         setWinningMessage("The computer won this match!");
         setComputerScore(computerScore+=1);
         setPrintoutScoreForComputer("Computer wins: " + computerScore);
         setIsButtonVisible(true);
-        return true;
     }
 
-    private boolean tie() {
+    private void tie() {
         disableAllMoves();
         setWinningMessage("It's a tie!");
         disableAllMoves();
         setIsButtonVisible(true);
-        return true;
     }
 
     // BoxSelector
@@ -256,145 +250,71 @@ public class Model {
 
 //  GETTERS  &  SETTERS
 
-    public Image getAvailableSpace() {
-        return availableSpace;
-    }
 
-    public void setAvailableSpace(Image availableSpace) {
-        this.availableSpace = availableSpace;
-    }
 
-    public Image getUserMarker() {
-        return userMarker;
-    }
 
-    public void setUserMarker(Image userMarker) {
-        this.userMarker = userMarker;
-    }
 
-    public Image getComputerMarker() {
-        return computerMarker;
-    }
 
-    public void setComputerMarker(Image computerMarker) {
-        this.computerMarker = computerMarker;
-    }
+
+
+
 
     public Image getBox1() {
         return box1.get();
     }
 
-    public ObjectProperty<Image> box1Property() {
-        return box1;
-    }
-
-    public void setBox1(Image box1) {
-        this.box1.set(box1);
-    }
 
     public Image getBox2() {
         return box2.get();
     }
 
-    public ObjectProperty<Image> box2Property() {
-        return box2;
-    }
 
-    public void setBox2(Image box2) {
-        this.box2.set(box2);
-    }
 
     public Image getBox3() {
         return box3.get();
     }
 
-    public ObjectProperty<Image> box3Property() {
-        return box3;
-    }
 
-    public void setBox3(Image box3) {
-        this.box3.set(box3);
-    }
 
     public Image getBox4() {
         return box4.get();
     }
 
-    public ObjectProperty<Image> box4Property() {
-        return box4;
-    }
-
-    public void setBox4(Image box4) {
-        this.box4.set(box4);
-    }
 
     public Image getBox5() {
         return box5.get();
     }
 
-    public ObjectProperty<Image> box5Property() {
-        return box5;
-    }
 
-    public void setBox5(Image box5) {
-        this.box5.set(box5);
-    }
 
     public Image getBox6() {
         return box6.get();
     }
 
-    public ObjectProperty<Image> box6Property() {
-        return box6;
-    }
 
-    public void setBox6(Image box6) {
-        this.box6.set(box6);
-    }
 
     public Image getBox7() {
         return box7.get();
     }
 
-    public ObjectProperty<Image> box7Property() {
-        return box7;
-    }
 
-    public void setBox7(Image box7) {
-        this.box7.set(box7);
-    }
 
     public Image getBox8() {
         return box8.get();
     }
 
-    public ObjectProperty<Image> box8Property() {
-        return box8;
-    }
 
-    public void setBox8(Image box8) {
-        this.box8.set(box8);
-    }
 
     public Image getBox9() {
         return box9.get();
     }
 
-    public ObjectProperty<Image> box9Property() {
-        return box9;
-    }
-
-    public void setBox9(Image box9) {
-        this.box9.set(box9);
-    }
 
     public String getWinningMessage() {
         return winningMessage.get();
     }
 
-    public StringProperty winningMessageProperty() {
-        return winningMessage;
-    }
+
 
     public void setWinningMessage(String winningMessage) {
         this.winningMessage.set(winningMessage);
@@ -404,25 +324,17 @@ public class Model {
         return isButtonVisible.get();
     }
 
-    public BooleanProperty isButtonVisibleProperty() {
-        return isButtonVisible;
-    }
 
     public void setIsButtonVisible(boolean isButtonVisible) {
         this.isButtonVisible.set(isButtonVisible);
     }
 
-    public int getComputerScore() {
-        return computerScore;
-    }
+
 
     public void setComputerScore(int computerScore) {
         this.computerScore = computerScore;
     }
 
-    public int getUserScore() {
-        return userScore;
-    }
 
     public void setUserScore(int userScore) {
         this.userScore = userScore;
@@ -432,9 +344,6 @@ public class Model {
         return printoutScoreForUser.get();
     }
 
-    public StringProperty printoutScoreForUserProperty() {
-        return printoutScoreForUser;
-    }
 
     public void setPrintoutScoreForUser(String printoutScoreForUser) {
         this.printoutScoreForUser.set(printoutScoreForUser);
@@ -444,9 +353,6 @@ public class Model {
         return printoutScoreForComputer.get();
     }
 
-    public StringProperty printoutScoreForComputerProperty() {
-        return printoutScoreForComputer;
-    }
 
     public void setPrintoutScoreForComputer(String printoutScoreForComputer) {
         this.printoutScoreForComputer.set(printoutScoreForComputer);
