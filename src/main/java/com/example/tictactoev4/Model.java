@@ -1,13 +1,9 @@
 package com.example.tictactoev4;
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
-
 
 // metod som kan avgöra om man får klicka + test isValid
 // om man har vunnit
@@ -20,8 +16,8 @@ public class Model {
     public Image computerMarker;
 
     private List<String> availableMoves;
-    private List<String> userMoves = new ArrayList<>();
-    private List<String> computerMoves = new ArrayList<>();
+    private final List<String> userMoves = new ArrayList<>();
+    private final List<String> computerMoves = new ArrayList<>();
 
     private int computerScore = 0;
     private int userScore = 0;
@@ -32,16 +28,16 @@ public class Model {
     private final StringProperty printoutScoreForUser = new SimpleStringProperty("");
     private final StringProperty printoutScoreForComputer = new SimpleStringProperty("");
 
-    private ObjectProperty<Image> box1;
-    private ObjectProperty<Image> box2;
-    private ObjectProperty<Image> box3;
-    private ObjectProperty<Image> box4;
-    private ObjectProperty<Image> box5;
-    private ObjectProperty<Image> box6;
-    private ObjectProperty<Image> box7;
-    private ObjectProperty<Image> box8;
-    private ObjectProperty<Image> box9;
-    private List<ObjectProperty<Image>> listOfBoxes = new ArrayList<>();
+    private final ObjectProperty<Image> box1;
+    private final ObjectProperty<Image> box2;
+    private final ObjectProperty<Image> box3;
+    private final ObjectProperty<Image> box4;
+    private final ObjectProperty<Image> box5;
+    private final ObjectProperty<Image> box6;
+    private final ObjectProperty<Image> box7;
+    private final ObjectProperty<Image> box8;
+    private final ObjectProperty<Image> box9;
+    private final List<ObjectProperty<Image>> listOfBoxes = new ArrayList<>();
 
 
 
@@ -71,13 +67,17 @@ public class Model {
     }
 
 
+    //todo disable  boxes  when won
+
     // Inputs from controller
     public void userClick(String boxId) {
         if(isValidMove(boxId)){
             userMove(boxId);
+            isGameOver();
+            initializeComputerMove();
         }
-        isGameOver();
-        initializeComputerMove();
+
+
     }
 
     private void initializeAvailableMoves(){
@@ -113,6 +113,8 @@ public class Model {
     private void userMove(String userMove) {
             markUserMove(boxSelector(userMove));
             userMoves.add(userMove);
+            System.out.println(availableMoves);
+             System.out.println(userMove);
             availableMoves.remove(userMove);
     }
 
@@ -169,15 +171,14 @@ public class Model {
 
 
 
-    public boolean isGameOver() {
+    public void isGameOver() {
         if (winCheck(computerMoves)) {
-            return computerWin();
+            computerWin();
         } else if (winCheck(userMoves)) {
-            return userWin();
+            userWin();
         } else if (availableMoves.isEmpty()) {
-            return tie();
+            tie();
         }
-        return false;
     }
 
     private boolean isValidMove(String move){
@@ -188,22 +189,25 @@ public class Model {
 
     // OUTCOMES
     public boolean userWin(){
+        disableAllMoves();
         setWinningMessage("You won this match!");
-        setUserScore(userScore = userScore+1);
+        setUserScore(userScore+=1);
         setPrintoutScoreForUser("Your wins: " + userScore);
         setIsButtonVisible(true);
         return true;
     }
 
     public boolean computerWin(){
+        disableAllMoves();
         setWinningMessage("The computer won this match!");
-        setComputerScore(computerScore = computerScore+1);
+        setComputerScore(computerScore+=1);
         setPrintoutScoreForComputer("Computer wins: " + computerScore);
         setIsButtonVisible(true);
         return true;
     }
 
     private boolean tie() {
+        disableAllMoves();
         setWinningMessage("It's a tie!");
         disableAllMoves();
         setIsButtonVisible(true);
