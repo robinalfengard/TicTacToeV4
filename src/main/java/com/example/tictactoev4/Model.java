@@ -1,10 +1,12 @@
 package com.example.tictactoev4;
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 
 // metod som kan avgöra om man får klicka + test isValid
@@ -69,13 +71,14 @@ public class Model {
     }
 
 
+
     // Inputs from controller
     public void userClick(String boxId) {
-        if(!isGameOver()){
-           if (isValidMove(boxId))
-               userMove(boxId);
-            System.out.println(availableMoves);
+        if(isValidMove(boxId)){
+            userMove(boxId);
         }
+        isGameOver();
+        initializeComputerMove();
     }
 
     private void initializeAvailableMoves(){
@@ -90,6 +93,8 @@ public class Model {
 
     private void resetBoxes(){
         resetScore();
+
+        //  funkar
         listOfBoxes.forEach(this::markBoxAvailable);
         userMoves.clear();
         computerMoves.clear();
@@ -100,6 +105,7 @@ public class Model {
     }
 
     public void resetScore() {
+        // funkar inte
         setUserScore(0);
         setComputerScore(0);
     }
@@ -108,11 +114,9 @@ public class Model {
 
     //MOVES
     private void userMove(String userMove) {
-        markUserMove(boxSelector(userMove));
-        userMoves.add(userMove);
-        availableMoves.remove(userMove);
-        if(!isGameOver())
-            initializeComputerMove();
+            markUserMove(boxSelector(userMove));
+            userMoves.add(userMove);
+            availableMoves.remove(userMove);
     }
 
     private void markUserMove(ObjectProperty<Image> boxToPaint) {
@@ -131,7 +135,6 @@ public class Model {
         if (availableMoves.isEmpty()) {
             return null; // Or some other appropriate action
         }
-
         int move = random.nextInt(availableMoves.size());
         return availableMoves.get(move);
     }
@@ -162,23 +165,19 @@ public class Model {
 
     // Checks
     public boolean winCheck(List<String> movesToCheck) {
-        List<String> sortedCombination = movesToCheck.stream().sorted().toList();
         return factoryMethods.winningCombinations().stream()
-                .anyMatch(combination -> {
-                    List<String> sortedList = combination.stream().sorted().toList();
-                    return sortedList.equals(sortedCombination);
-                });
+                .anyMatch(movesToCheck::containsAll
+                );
     }
+
+
 
     public boolean isGameOver() {
         if (winCheck(computerMoves)) {
-            disableAllMoves();
             return computerWin();
         } else if (winCheck(userMoves)) {
-            disableAllMoves();
             return userWin();
-        }   else if (availableMoves.isEmpty()) {
-            disableAllMoves();
+        } else if (availableMoves.isEmpty()) {
             return tie();
         }
         return false;
@@ -193,19 +192,17 @@ public class Model {
     // OUTCOMES
     public boolean userWin(){
         setWinningMessage("You won this match!");
-        setUserScore(getUserScore()+1);
+        setUserScore(userScore = userScore+1);
         setPrintoutScoreForUser("Your wins: " + userScore);
         setIsButtonVisible(true);
-        disableAllMoves();
         return true;
     }
 
     public boolean computerWin(){
         setWinningMessage("The computer won this match!");
-        setComputerScore(getComputerScore() +1);
+        setComputerScore(computerScore = computerScore+1);
         setPrintoutScoreForComputer("Computer wins: " + computerScore);
         setIsButtonVisible(true);
-        disableAllMoves();
         return true;
     }
 
