@@ -1,10 +1,9 @@
 package com.example.tictactoev4;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class Controller {
-    private Model model = new Model();
+    Model model = new Model();
 
 
     public Model getModel() {
@@ -14,6 +13,7 @@ public class Controller {
     public void boxClicked(MouseEvent event) {
         ImageView boxClicked = (ImageView) event.getSource();
         String  boxId =  boxClicked.getId();
+        System.out.println(event.getSource());
         model.userClick(boxId);
     }
 
