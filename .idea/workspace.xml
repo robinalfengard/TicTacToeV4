@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b115c029-79e8-4823-81da-c781dc553119" name="Changes" comment="reset game  now works">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="b115c029-79e8-4823-81da-c781dc553119" name="Changes" comment="win condition modified">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Model.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,12 +70,20 @@
       <option name="presentableId" value="LOCAL−00002" />
       <updated>1698246160342</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL−00003" summary="win condition modified">
+      <option name="closed" value="true" />
+      <created>1698248942970</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1698248942971</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init" />
     <MESSAGE value="reset game  now works" />
-    <option name="LAST_COMMIT_MESSAGE" value="reset game  now works" />
+    <MESSAGE value="win condition modified" />
+    <option name="LAST_COMMIT_MESSAGE" value="win condition modified" />
   </component>
 </project>

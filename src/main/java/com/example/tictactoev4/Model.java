@@ -71,7 +71,6 @@ public class Model {
     }
 
 
-
     // Inputs from controller
     public void userClick(String boxId) {
         if(isValidMove(boxId)){
@@ -92,9 +91,6 @@ public class Model {
     }
 
     private void resetBoxes(){
-        resetScore();
-
-        //  funkar
         listOfBoxes.forEach(this::markBoxAvailable);
         userMoves.clear();
         computerMoves.clear();
@@ -105,9 +101,10 @@ public class Model {
     }
 
     public void resetScore() {
-        // funkar inte
         setUserScore(0);
+        setPrintoutScoreForUser("Your wins: " + userScore);
         setComputerScore(0);
+        setPrintoutScoreForComputer("Computer wins: " +computerScore);
     }
 
 
