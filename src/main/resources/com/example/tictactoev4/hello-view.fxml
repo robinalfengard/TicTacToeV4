@@ -8,29 +8,68 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.Pane?>
 <?import java.net.URL?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.tictactoev4.Controller" >
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<BorderPane style="-fx-font-size: 14px; -fx-font-family:georgia" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.tictactoev4.Controller" >
     <stylesheets>
         <URL value="@styles.css" />
     </stylesheets>
-    <Pane/>
-
-    <Label style="-fx-font-size: 30px;"  text="Tic Tac At Hogwarts!" alignment="BASELINE_CENTER"/>
-    <Label  text="${controller.model.winningMessage}" style="-fx-font-size: 30px;"/>
-    <VBox alignment="CENTER"  maxWidth="200.0" minWidth="200.0">
-        <Label text="${controller.model.printoutScoreForUser}" style="-fx-font-size: 20px;"/>
-        <Label text="${controller.model.printoutScoreForComputer}" style="-fx-font-size: 20px;"/>
-        <HBox>
-        <Button onMouseClicked="#playAgain" text="Play Again?" visible="${controller.model.isButtonVisible}"/>
-        <Button   onMouseClicked="#resetScore" text="Reset Score?" visible="${controller.model.isButtonVisible}"/>
+        <!-- Header   -->
+    <top>
+        <HBox alignment="CENTER" maxHeight="150" minHeight="150"  >
+            <Label style="-fx-font-size: 40px;"  text="Tic Tac At Hogwarts!" />
         </HBox>
-    </VBox>
-    <HBox alignment="CENTER" >
+    </top>
 
-    </HBox>
+    <left>
+        <VBox styleClass="points" alignment="CENTER" minWidth="175" maxWidth="175" maxHeight="200">
+            <!-- Add your left pane content here -->
+            <Label text="${controller.model.printoutScoreForUser}" style="-fx-font-size: 20px;" />
+            <VBox alignment="CENTER" minHeight="45" maxHeight="45">
+            <ComboBox fx:id="houseComboBox" promptText="Switch house">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Gryffindor" />
+                        <String fx:value="Slytherin" />
+                        <String fx:value="Ravenclaw" />
+                        <String fx:value="Hufflepuff" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            </VBox>
+            <VBox minHeight="45" maxHeight="45" alignment="CENTER">
+            <Button text="OK" />
+            </VBox>
+        </VBox>
+    </left>
 
-    <GridPane alignment="TOP_CENTER" prefWidth="450" prefHeight="450">
+    <right>
+        <VBox styleClass="points" alignment="CENTER" minWidth="175" maxWidth="175" maxHeight="200">
+            <!-- Add your left pane content here -->
+            <Label text="${controller.model.printoutScoreForComputer}" style="-fx-font-size: 20px;" />
+            <VBox alignment="CENTER" minHeight="45" maxHeight="45">
+            <ComboBox fx:id="houseComboBoxForOpponent" promptText="Switch house">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Gryffindor" />
+                        <String fx:value="Slytherin" />
+                        <String fx:value="Ravenclaw" />
+                        <String fx:value="Hufflepuff" />
+
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            </VBox>
+            <VBox minHeight="45" maxHeight="45" alignment="CENTER">
+                <Button text="OK" />
+            </VBox>
+        </VBox>
+    </right>
+
+<center>
+    <GridPane alignment="CENTER" prefWidth="450" prefHeight="450">
         <!-- Row 1 -->
         <StackPane GridPane.rowIndex="0" GridPane.columnIndex="0" prefHeight="100" prefWidth="100">
             <BorderPane style="-fx-border-color: black; -fx-border-width: 4px;">
@@ -133,4 +172,19 @@
             </BorderPane>
         </StackPane>
     </GridPane>
+</center>
+
+    <bottom>
+<VBox alignment="TOP_CENTER" >
+        <HBox alignment="CENTER" maxWidth="800.0" minWidth="800.0" spacing="10" minHeight="100" maxHeight="100" >
+            <Label text="${controller.model.winningMessage}" style="-fx-font-size: 30px;" />
+        </HBox>
+            <HBox alignment="TOP_CENTER" maxHeight="100" minHeight="100">
+                <Button onMouseClicked="#playAgain" text="Play Again?" visible="${controller.model.isButtonVisible}" />
+                <Button onMouseClicked="#resetScore" text="Reset Score?" visible="${controller.model.isButtonVisible}" />
+            </HBox>
+
 </VBox>
+    </bottom>
+
+</BorderPane>

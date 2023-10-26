@@ -3,3 +3,9 @@
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
+
+.points{
+    -fx-background-image: url('Images/points.jpeg');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
