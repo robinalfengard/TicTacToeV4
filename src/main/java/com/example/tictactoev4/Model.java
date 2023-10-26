@@ -1,5 +1,6 @@
 package com.example.tictactoev4;
 import javafx.beans.property.*;
+import javafx.fxml.LoadException;
 import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +43,13 @@ public class Model {
 
 
     public Model(){
-        availableSpace = new Image(getClass().getResource("Images/vit.png").toExternalForm());
-        userMarker = new Image(getClass().getResource("Images/user.png").toExternalForm());
-        computerMarker = new Image(getClass().getResource("Images/computer.jpeg").toExternalForm());
+        try {
+            availableSpace = new Image(getClass().getResource("Images/vit.png").toExternalForm());
+            userMarker = new Image(getClass().getResource("Images/user.png").toExternalForm());
+            computerMarker = new Image(getClass().getResource("Images/computer.jpeg").toExternalForm());
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
         box1 = new SimpleObjectProperty<>(availableSpace);
         box2 = new SimpleObjectProperty<>(availableSpace);
         box3 = new SimpleObjectProperty<>(availableSpace);
@@ -180,7 +185,7 @@ public class Model {
         }
     }
 
-    private boolean isValidMove(String move){
+    public boolean isValidMove(String move){
         return availableMoves.contains(move);
     }
 
@@ -449,6 +454,11 @@ public class Model {
         this.printoutScoreForComputer.set(printoutScoreForComputer);
     }
 
+    public List<String> getAvailableMoves() {
+        return availableMoves;
+    }
 
-
+    public void setAvailableMoves(List<String> availableMoves) {
+        this.availableMoves = availableMoves;
+    }
 }
