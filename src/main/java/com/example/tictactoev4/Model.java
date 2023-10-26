@@ -44,9 +44,10 @@ public class Model {
 
     public Model(){
         try {
-            availableSpace = new Image(getClass().getResource("Images/vit.png").toExternalForm());
-            userMarker = new Image(getClass().getResource("Images/user.png").toExternalForm());
-            computerMarker = new Image(getClass().getResource("Images/computer.jpeg").toExternalForm());
+            availableSpace = new Image(getClass().getResource("Images/available.jpeg").toExternalForm());
+            userMarker = new Image(getClass().getResource("Images/huff.jpeg").toExternalForm());
+            computerMarker = new Image(getClass().getResource("Images/slytherin.jpeg").toExternalForm());
+
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
@@ -117,8 +118,6 @@ public class Model {
     private void userMove(String userMove) {
             markUserMove(boxSelector(userMove));
             userMoves.add(userMove);
-            System.out.println(availableMoves);
-             System.out.println(userMove);
             availableMoves.remove(userMove);
     }
 

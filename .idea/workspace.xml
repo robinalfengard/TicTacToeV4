@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b115c029-79e8-4823-81da-c781dc553119" name="Changes" comment="improved sizing in fxml file">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/tictactoev4/ModelTest.java" afterDir="false" />
+    <list default="true" id="b115c029-79e8-4823-81da-c781dc553119" name="Changes" comment="added tests">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/tictactoev4/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/tictactoev4/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/tictactoev4/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +201,14 @@
       <option name="presentableId" value="LOCAL−00006" />
       <updated>1698255308822</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL−00007" summary="added tests">
+      <option name="closed" value="true" />
+      <created>1698330685408</created>
+      <option name="number" value="LOCAL−00007" />
+      <option name="presentableId" value="LOCAL−00007" />
+      <updated>1698330685409</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -209,6 +218,7 @@
     <MESSAGE value="minor reset modification" />
     <MESSAGE value="working again" />
     <MESSAGE value="improved sizing in fxml file" />
-    <option name="LAST_COMMIT_MESSAGE" value="improved sizing in fxml file" />
+    <MESSAGE value="added tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="added tests" />
   </component>
 </project>
