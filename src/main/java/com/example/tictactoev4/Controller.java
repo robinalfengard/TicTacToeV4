@@ -13,7 +13,6 @@ public class Controller {
     public void boxClicked(MouseEvent event) {
         ImageView boxClicked = (ImageView) event.getSource();
         String  boxId =  boxClicked.getId();
-        System.out.println(event.getSource());
         model.userClick(boxId);
     }
 
