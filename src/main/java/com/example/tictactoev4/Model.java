@@ -1,20 +1,28 @@
 package com.example.tictactoev4;
 import javafx.beans.property.*;
-import javafx.fxml.LoadException;
 import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
-// metod som kan avgöra om man får klicka + test isValid
-// om man har vunnit
+
+//Todo cara konsekvent i opponent eller computer, binda bilden vid score?
+
 public class Model {
     Random random = new Random();
     FactoryMethods factoryMethods = new FactoryMethods();
 
-    public Image availableSpace;
+
+    public Image hufflePuffImage = new Image(Objects.requireNonNull(getClass().getResource("Images/huff.jpeg")).toExternalForm());
+    public Image slytherinImage = new Image(Objects.requireNonNull(getClass().getResource("Images/slytherin.jpeg")).toExternalForm());
+    public Image ravenClawImage = new Image(Objects.requireNonNull(getClass().getResource("Images/ravenclaw.jpg")).toExternalForm());
+    public Image gryffindorImage = new Image(Objects.requireNonNull(getClass().getResource("Images/gryffindor.jpg")).toExternalForm());
+
     public Image userMarker;
     public Image computerMarker;
+    public Image availableSpace = new Image(Objects.requireNonNull(getClass().getResource("Images/available.jpeg")).toExternalForm());
+
 
     private List<String> availableMoves;
     private final List<String> userMoves = new ArrayList<>();
@@ -26,8 +34,10 @@ public class Model {
     private final StringProperty winningMessage = new SimpleStringProperty("No Winner Yet");
     private final BooleanProperty isButtonVisible = new SimpleBooleanProperty(false);
 
+
     private final StringProperty printoutScoreForUser = new SimpleStringProperty("");
     private final StringProperty printoutScoreForComputer = new SimpleStringProperty("");
+
 
     private final ObjectProperty<Image> box1;
     private final ObjectProperty<Image> box2;
@@ -38,19 +48,17 @@ public class Model {
     private final ObjectProperty<Image> box7;
     private final ObjectProperty<Image> box8;
     private final ObjectProperty<Image> box9;
+    private final ObjectProperty<Image> hufflePuffLogo;
+    private final ObjectProperty<Image> slytherinLogo;
+    private final ObjectProperty<Image> ravenclawLogo;
+    private final ObjectProperty<Image> gryffindorLogo;
+    private final ObjectProperty<Image> userHouse;
+    private final ObjectProperty<Image> opponentHouse;
     private final List<ObjectProperty<Image>> listOfBoxes = new ArrayList<>();
 
 
 
     public Model(){
-        try {
-            availableSpace = new Image(getClass().getResource("Images/available.jpeg").toExternalForm());
-            userMarker = new Image(getClass().getResource("Images/huff.jpeg").toExternalForm());
-            computerMarker = new Image(getClass().getResource("Images/slytherin.jpeg").toExternalForm());
-
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-        }
         box1 = new SimpleObjectProperty<>(availableSpace);
         box2 = new SimpleObjectProperty<>(availableSpace);
         box3 = new SimpleObjectProperty<>(availableSpace);
@@ -60,6 +68,15 @@ public class Model {
         box7 = new SimpleObjectProperty<>(availableSpace);
         box8 = new SimpleObjectProperty<>(availableSpace);
         box9 = new SimpleObjectProperty<>(availableSpace);
+        hufflePuffLogo = new SimpleObjectProperty<>(hufflePuffImage);
+        slytherinLogo = new SimpleObjectProperty<>(slytherinImage);
+        ravenclawLogo = new SimpleObjectProperty<>(ravenClawImage);
+        gryffindorLogo = new SimpleObjectProperty<>(gryffindorImage);
+        userHouse = new SimpleObjectProperty<>(gryffindorImage);
+        opponentHouse = new SimpleObjectProperty<>(slytherinImage);
+        setUserMarker(gryffindorImage);
+        setComputerMarker(slytherinImage);
+
         listOfBoxes.add(box1);
         listOfBoxes.add(box2);
         listOfBoxes.add(box3);
@@ -81,8 +98,6 @@ public class Model {
             isGameOver();
             initializeComputerMove();
         }
-
-
     }
 
     private void initializeAvailableMoves(){
@@ -92,6 +107,7 @@ public class Model {
     public void restartGame() {
         resetBoxes();
         resetAvailableMoves();
+        setWinningMessage("No Winner Yet");
         setIsButtonVisible(false);
     }
 
@@ -161,17 +177,12 @@ public class Model {
     }
 
 
-
-
-
-
     // Checks
     public boolean winCheck(List<String> movesToCheck) {
         return factoryMethods.winningCombinations().stream()
                 .anyMatch(movesToCheck::containsAll
                 );
     }
-
 
 
     public void isGameOver() {
@@ -212,7 +223,6 @@ public class Model {
         setWinningMessage("It's a tie!");
         disableAllMoves();
         setIsButtonVisible(true);
-
     }
 
     // BoxSelector
@@ -233,8 +243,31 @@ public class Model {
         return box;
     }
 
+    // Update house
+    public void updateOpponentHouse(String house) {
+        //todo bryta ut metod
+        setComputerMarker(houseSelector(house));
+        setOpponentHouse(houseSelector(house));
 
+    }
 
+    public void updateUserHouse(String house) {
+        setUserMarker(houseSelector(house));
+        setUserHouse(houseSelector(house));
+
+    }
+
+    public Image houseSelector(String input){
+        Image house;
+        switch (input){
+            case "Ravenclaw" -> house = ravenClawImage;
+            case "Gryffindor" -> house = gryffindorImage;
+            case "Hufflepuff" -> house = hufflePuffImage;
+            case "Slytherin" -> house = slytherinImage;
+            default -> throw new IllegalStateException("Unexpected value: " + input);
+        }
+        return house;
+    }
 
 
 
@@ -257,29 +290,6 @@ public class Model {
 
 //  GETTERS  &  SETTERS
 
-    public Image getAvailableSpace() {
-        return availableSpace;
-    }
-
-    public void setAvailableSpace(Image availableSpace) {
-        this.availableSpace = availableSpace;
-    }
-
-    public Image getUserMarker() {
-        return userMarker;
-    }
-
-    public void setUserMarker(Image userMarker) {
-        this.userMarker = userMarker;
-    }
-
-    public Image getComputerMarker() {
-        return computerMarker;
-    }
-
-    public void setComputerMarker(Image computerMarker) {
-        this.computerMarker = computerMarker;
-    }
 
     public Image getBox1() {
         return box1.get();
@@ -413,9 +423,7 @@ public class Model {
         this.isButtonVisible.set(isButtonVisible);
     }
 
-    public int getComputerScore() {
-        return computerScore;
-    }
+
 
     public void setComputerScore(int computerScore) {
         this.computerScore = computerScore;
@@ -457,7 +465,45 @@ public class Model {
         return availableMoves;
     }
 
-    public void setAvailableMoves(List<String> availableMoves) {
-        this.availableMoves = availableMoves;
+
+    public Image getUserMarker() {
+        return userMarker;
+    }
+
+    public void setUserMarker(Image userMarker) {
+        this.userMarker = userMarker;
+    }
+
+    public Image getComputerMarker() {
+        return computerMarker;
+    }
+
+    public void setComputerMarker(Image computerMarker) {
+        this.computerMarker = computerMarker;
+    }
+
+
+    public void setUserHouse(Image userHouse) {
+        this.userHouse.set(userHouse);
+    }
+
+    public void setOpponentHouse(Image opponentHouse) {
+        this.opponentHouse.set(opponentHouse);
+    }
+
+    public Image getUserHouse() {
+        return userHouse.get();
+    }
+
+    public ObjectProperty<Image> userHouseProperty() {
+        return userHouse;
+    }
+
+    public Image getOpponentHouse() {
+        return opponentHouse.get();
+    }
+
+    public ObjectProperty<Image> opponentHouseProperty() {
+        return opponentHouse;
     }
 }
