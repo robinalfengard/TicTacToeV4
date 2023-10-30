@@ -1,4 +1,5 @@
 package com.example.tictactoev4;
+
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
@@ -12,47 +13,35 @@ import java.util.Random;
 //Todo cara konsekvent i opponent eller computer
 
 public class Model {
-    private final int TOTAL_MOVES = 9;
+    private final int TOTAL_BOXES = 9;
     Random random = new Random();
     FactoryMethods factoryMethods = new FactoryMethods();
+    private final BooleanProperty isButtonVisible = new SimpleBooleanProperty(false);
 
-    private BooleanProperty gameRunning = new SimpleBooleanProperty(false);
-
-
+    //Audio
     AudioClip userSound = new AudioClip(getClass().getResource("Sounds/strong-hit-36455.mp3").toExternalForm());
     AudioClip opponentSound = new AudioClip(getClass().getResource("Sounds/sword-hit-7160.mp3").toExternalForm());
-
     AudioClip winningSound = new AudioClip(getClass().getResource("Sounds/tada-fanfare-a-6313.mp3").toExternalForm());
     AudioClip losingSound = new AudioClip(getClass().getResource("Sounds/fail-144746.mp3").toExternalForm());
-
-
+    //Images
     public Image hufflePuffImage = new Image(Objects.requireNonNull(getClass().getResource("Images/huff.jpeg")).toExternalForm());
     public Image slytherinImage = new Image(Objects.requireNonNull(getClass().getResource("Images/slytherin.jpeg")).toExternalForm());
     public Image ravenClawImage = new Image(Objects.requireNonNull(getClass().getResource("Images/ravenclaw.jpg")).toExternalForm());
     public Image gryffindorImage = new Image(Objects.requireNonNull(getClass().getResource("Images/gryffindor.jpg")).toExternalForm());
-
     public Image userMarker;
     public Image computerMarker;
     public Image availableSpace = new Image(Objects.requireNonNull(getClass().getResource("Images/available.jpeg")).toExternalForm());
-
-
+    //Moves
     private List<String> availableMoves;
     private final List<String> userMoves = new ArrayList<>();
     private final List<String> opponentMoves = new ArrayList<>();
-
-
-
+    private final BooleanProperty gameRunning = new SimpleBooleanProperty(false);
+   //Scores
     private int opponentScore = 0;
     private int userScore = 0;
-
-    private final StringProperty winningMessage = new SimpleStringProperty("No Winner Yet");
-    private final BooleanProperty isButtonVisible = new SimpleBooleanProperty(false);
-
-
-
     private final StringProperty printoutScoreForUser = new SimpleStringProperty("");
     private final StringProperty printoutScoreForOpponent = new SimpleStringProperty("");
-
+    private final StringProperty winningMessage = new SimpleStringProperty("No Winner Yet");
 
     private final ObjectProperty<Image> box1;
     private final ObjectProperty<Image> box2;
@@ -72,8 +61,7 @@ public class Model {
     private final List<ObjectProperty<Image>> listOfBoxes = new ArrayList<>();
 
 
-
-    public Model(){
+    public Model() {
         box1 = new SimpleObjectProperty<>(availableSpace);
         box2 = new SimpleObjectProperty<>(availableSpace);
         box3 = new SimpleObjectProperty<>(availableSpace);
@@ -91,7 +79,6 @@ public class Model {
         opponentHouse = new SimpleObjectProperty<>(slytherinImage);
         setUserMarker(gryffindorImage);
         setOpponentMarker(slytherinImage);
-
         listOfBoxes.add(box1);
         listOfBoxes.add(box2);
         listOfBoxes.add(box3);
@@ -102,15 +89,12 @@ public class Model {
         listOfBoxes.add(box8);
         listOfBoxes.add(box9);
         initializeAvailableMoves();
-
-
     }
-
 
 
     // Inputs from controller
     public void userClick(String boxId) {
-        if(isValidMove(boxId)){
+        if (isValidMove(boxId)) {
             userMove(boxId);
             isGameOver();
             toggleGameRunning();
@@ -119,7 +103,7 @@ public class Model {
         }
     }
 
-    private void initializeAvailableMoves(){
+    private void initializeAvailableMoves() {
         availableMoves = factoryMethods.getAvailableMoves();
     }
 
@@ -131,7 +115,7 @@ public class Model {
         toggleGameRunning();
     }
 
-    private void resetBoxes(){
+    private void resetBoxes() {
         listOfBoxes.forEach(this::markBoxAvailable);
         userMoves.clear();
         opponentMoves.clear();
@@ -149,12 +133,11 @@ public class Model {
     }
 
 
-
     //MOVES
     private void userMove(String userMove) {
-            markUserMove(boxSelector(userMove));
-            userMoves.add(userMove);
-            availableMoves.remove(userMove);
+        markUserMove(boxSelector(userMove));
+        userMoves.add(userMove);
+        availableMoves.remove(userMove);
     }
 
     private void markUserMove(ObjectProperty<Image> boxToPaint) {
@@ -162,11 +145,11 @@ public class Model {
     }
 
     private void makeComputerMove(String computerMove) {
-            markComputerMove(boxSelector(computerMove));
-            opponentMoves.add(computerMove);
-            availableMoves.remove(computerMove);
-            opponentSound.play();
-            isGameOver();
+        markComputerMove(boxSelector(computerMove));
+        opponentMoves.add(computerMove);
+        availableMoves.remove(computerMove);
+        opponentSound.play();
+        isGameOver();
     }
 
 
@@ -178,8 +161,7 @@ public class Model {
         return availableMoves.get(move);
     }
 
-
-    private void initializeComputerMove(){
+    private void initializeComputerMove() {
         String computerMove = generateComputerMove();
         if (isValidMove(computerMove))
             makeComputerMove(computerMove);
@@ -216,26 +198,25 @@ public class Model {
         }
     }
 
-    public boolean isValidMove(String move){
+    public boolean isValidMove(String move) {
         return availableMoves.contains(move);
     }
 
 
-
     // OUTCOMES
-    public void userWin(){
+    public void userWin() {
         disableAllMoves();
         setWinningMessage("You won this match!");
-        setUserScore(userScore+=1);
+        setUserScore(userScore += 1);
         setPrintoutScoreForUser("Your wins: " + userScore);
         setIsButtonVisible(true);
         winningSound.play();
     }
 
-    public void computerWin(){
+    public void computerWin() {
         disableAllMoves();
         setWinningMessage("The computer won this match!");
-        setOpponentScore(opponentScore +=1);
+        setOpponentScore(opponentScore += 1);
         setPrintoutScoreForOpponent("Computer wins: " + opponentScore);
         setIsButtonVisible(true);
         losingSound.play();
@@ -249,9 +230,9 @@ public class Model {
     }
 
     // BoxSelector
-    private ObjectProperty<Image> boxSelector(String id){
-        ObjectProperty<Image>  box;
-        switch(id){
+    private ObjectProperty<Image> boxSelector(String id) {
+        ObjectProperty<Image> box;
+        switch (id) {
             case "box1" -> box = box1;
             case "box2" -> box = box2;
             case "box3" -> box = box3;
@@ -280,9 +261,9 @@ public class Model {
 
     }
 
-    public Image houseSelector(String input){
+    public Image houseSelector(String input) {
         Image house;
-        switch (input){
+        switch (input) {
             case "Ravenclaw" -> house = ravenClawImage;
             case "Gryffindor" -> house = gryffindorImage;
             case "Hufflepuff" -> house = hufflePuffImage;
@@ -292,21 +273,9 @@ public class Model {
         return house;
     }
 
-    public boolean isGameRunning() {
-        return TOTAL_MOVES > availableMoves.size();
-    }
 
-    public void toggleGameRunning() {
-        gameRunning.set(isGameRunning());
-    }
 
-    public BooleanProperty gameRunningProperty() {
-        return gameRunning;
-    }
 
-    public void setGameRunning(boolean gameRunning) {
-        this.gameRunning.set(gameRunning);
-    }
     //  GETTERS  &  SETTERS
 
 
@@ -442,8 +411,6 @@ public class Model {
         this.isButtonVisible.set(isButtonVisible);
     }
 
-
-
     public void setOpponentScore(int opponentScore) {
         this.opponentScore = opponentScore;
     }
@@ -485,17 +452,10 @@ public class Model {
     }
 
 
-    public Image getUserMarker() {
-        return userMarker;
-    }
-
     public void setUserMarker(Image userMarker) {
         this.userMarker = userMarker;
     }
 
-    public Image getComputerMarker() {
-        return computerMarker;
-    }
 
     public void setOpponentMarker(Image computerMarker) {
         this.computerMarker = computerMarker;
@@ -524,6 +484,19 @@ public class Model {
 
     public ObjectProperty<Image> opponentHouseProperty() {
         return opponentHouse;
+    }
+
+
+    public boolean isGameRunning() {
+        return TOTAL_BOXES > availableMoves.size();
+    }
+
+    public void toggleGameRunning() {
+        gameRunning.set(isGameRunning());
+    }
+
+    public BooleanProperty gameRunningProperty() {
+        return gameRunning;
     }
 
 }

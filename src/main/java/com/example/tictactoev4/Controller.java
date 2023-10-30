@@ -35,10 +35,10 @@ public class Controller {
     }
 
     public void confirmHouseChangeForOpponent(ActionEvent actionEvent) {
-        model.updateOpponentHouse(houseComboBoxForOpponent.getValue().toString());
+        model.updateOpponentHouse(houseComboBoxForOpponent.getValue());
     }
 
     public void confirmHouseChangeForUser(ActionEvent actionEvent) {
-        model.updateUserHouse(houseComboBoxForUser.getValue().toString());
+        model.updateUserHouse(houseComboBoxForUser.getValue());
     }
 }
