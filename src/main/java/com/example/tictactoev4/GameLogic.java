@@ -20,5 +20,9 @@ public class GameLogic {
                 );
     }
 
+    public boolean isValidMove(String move) {
+        return getAvailableMoves().contains(move);
+    }
+
 
 }

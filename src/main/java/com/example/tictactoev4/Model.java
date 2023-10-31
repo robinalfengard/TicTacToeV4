@@ -8,10 +8,6 @@ import java.util.List;
 import java.util.Random;
 import javafx.beans.property.ObjectProperty;
 
-
-
-//Todo cara konsekvent i opponent eller computer
-
 public class Model {
     private final int TOTAL_BOXES = 9;
     Images images = new Images();
@@ -19,7 +15,6 @@ public class Model {
     Random random = new Random();
     Service service = new Service();
     GameLogic gameLogic = new GameLogic();
-    FactoryMethods factoryMethods = new FactoryMethods();
     private final BooleanProperty isButtonVisible = new SimpleBooleanProperty(false);
     private final List<String> userMoves = new ArrayList<>();
     private final List<String> opponentMoves = new ArrayList<>();
@@ -55,13 +50,50 @@ public class Model {
     }
 
     public void userClick(String boxId) {
-        if (isValidMove(boxId)) {
+        if (gameLogic.isValidMove(boxId)) {
             userMove(boxId);
             isGameOver();
             toggleGameRunning();
             sounds.getUserSound().play();
             initializeComputerMove();
         }
+    }
+
+
+    private void userMove(String userMove) {
+        markUserMove(boxSelector(userMove));
+        userMoves.add(userMove);
+        gameLogic.getAvailableMoves().remove(userMove);
+    }
+
+    public void markUserMove(ObjectProperty<Image> boxToPaint) {
+        boxToPaint.set(images.getUserMarker());
+    }
+
+    private void initializeComputerMove() {
+        String computerMove = generateComputerMove();
+        if (gameLogic.isValidMove(computerMove))
+            makeComputerMove(computerMove);
+    }
+
+    private String generateComputerMove() {
+        if (gameLogic.getAvailableMoves().isEmpty()) {
+            return null;
+        }
+        int move = random.nextInt(gameLogic.getAvailableMoves().size());
+        return gameLogic.getAvailableMoves().get(move);
+    }
+
+    private void makeComputerMove(String computerMove) {
+        markComputerMove(boxSelector(computerMove));
+        opponentMoves.add(computerMove);
+        gameLogic.getAvailableMoves().remove(computerMove);
+        sounds.getUserSound().play();
+        isGameOver();
+    }
+
+    public void markComputerMove(ObjectProperty<Image> boxToMark) {
+        boxToMark.set(images.getComputerMarker());
     }
 
     public void restartGame() {
@@ -90,45 +122,6 @@ public class Model {
         setPrintoutScoreForOpponent("Opponent wins: " + opponentScore);
     }
 
-    private void userMove(String userMove) {
-        markUserMove(boxSelector(userMove));
-        userMoves.add(userMove);
-        gameLogic.getAvailableMoves().remove(userMove);
-    }
-
-    public void markUserMove(ObjectProperty<Image> boxToPaint) {
-        boxToPaint.set(images.getUserMarker());
-    }
-
-    private void initializeComputerMove() {
-        String computerMove = generateComputerMove();
-        if (isValidMove(computerMove))
-            makeComputerMove(computerMove);
-    }
-
-    private String generateComputerMove() {
-        if (gameLogic.getAvailableMoves().isEmpty()) {
-            return null;
-        }
-        int move = random.nextInt(gameLogic.getAvailableMoves().size());
-        return gameLogic.getAvailableMoves().get(move);
-    }
-
-    private void makeComputerMove(String computerMove) {
-        markComputerMove(boxSelector(computerMove));
-        opponentMoves.add(computerMove);
-        gameLogic.getAvailableMoves().remove(computerMove);
-        sounds.getUserSound().play();
-        isGameOver();
-    }
-
-    public void markComputerMove(ObjectProperty<Image> boxToMark) {
-        boxToMark.set(images.getComputerMarker());
-    }
-
-
-
-
     private void markBoxAvailable(ObjectProperty<Image> boxToMark) {
         boxToMark.set(images.getAvailableSpace());
     }
@@ -147,9 +140,7 @@ public class Model {
         }
     }
 
-    public boolean isValidMove(String move) {
-        return gameLogic.getAvailableMoves().contains(move);
-    }
+
 
     public void userWin() {
         disableAllMoves();
