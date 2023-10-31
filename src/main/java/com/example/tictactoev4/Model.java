@@ -1,8 +1,6 @@
 package com.example.tictactoev4;
-
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

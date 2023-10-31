@@ -7,20 +7,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ModelTest {
-    Model model = new Model();
 
-    @Test void resetScoreShouldResetScoreToZero(){
-        model.setUserScore(20);
-        model.resetScore();
-        assertEquals(0, model.getUserScore());
-    }
+    GameLogic gameLogic = new GameLogic();
+
 
     @Test void winCheckShouldReturnFalse(){
         List<String> shouldNotWin = new ArrayList<>();
         shouldNotWin.add("box2");
         shouldNotWin.add("box3");
         shouldNotWin.add("box4");
-        assertFalse(model.winCheck(shouldNotWin));
+        assertFalse(gameLogic.winCheck(shouldNotWin));
     }
 
     @Test void winCheckShouldReturnTrue(){
@@ -28,16 +24,18 @@ class ModelTest {
         shouldWin.add("box2");
         shouldWin.add("box3");
         shouldWin.add("box1");
-        assertTrue(model.winCheck(shouldWin));
+        assertTrue(gameLogic.winCheck(shouldWin));
     }
 
     @Test void isValidShouldReturnFalse(){
-        model.getAvailableMoves().remove("box1");
-        assertFalse(model.isValidMove("box1"));
+        gameLogic.initializeAvailableMoves();
+        gameLogic.getAvailableMoves().remove("box1");
+        assertFalse(gameLogic.isValidMove("box1"));
     }
 
     @Test void isValidShouldReturnTrue(){
-        assertTrue(model.isValidMove("box1"));
+        gameLogic.initializeAvailableMoves();
+        assertTrue(gameLogic.isValidMove("box1"));
     }
 
 
