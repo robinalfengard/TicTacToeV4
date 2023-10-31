@@ -2,11 +2,9 @@ package com.example.tictactoev4;
 
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 
@@ -14,24 +12,15 @@ import java.util.Random;
 
 public class Model {
     private final int TOTAL_BOXES = 9;
+    Images images = new Images();
+    Sounds sounds = new Sounds();
+
     Random random = new Random();
     FactoryMethods factoryMethods = new FactoryMethods();
     private final BooleanProperty isButtonVisible = new SimpleBooleanProperty(false);
 
     //Audio
-    AudioClip userSound = new AudioClip(getClass().getResource("Sounds/strong-hit-36455.mp3").toExternalForm());
-    AudioClip opponentSound = new AudioClip(getClass().getResource("Sounds/sword-hit-7160.mp3").toExternalForm());
-    AudioClip winningSound = new AudioClip(getClass().getResource("Sounds/tada-fanfare-a-6313.mp3").toExternalForm());
-    AudioClip losingSound = new AudioClip(getClass().getResource("Sounds/fail-144746.mp3").toExternalForm());
-    //Images
-    public Image hufflePuffImage = new Image(Objects.requireNonNull(getClass().getResource("Images/huff.jpeg")).toExternalForm());
-    public Image slytherinImage = new Image(Objects.requireNonNull(getClass().getResource("Images/slytherin.jpeg")).toExternalForm());
-    public Image ravenClawImage = new Image(Objects.requireNonNull(getClass().getResource("Images/ravenclaw.jpg")).toExternalForm());
-    public Image gryffindorImage = new Image(Objects.requireNonNull(getClass().getResource("Images/gryffindor.jpg")).toExternalForm());
-    public Image userMarker;
-    public Image computerMarker;
-    public Image availableSpace = new Image(Objects.requireNonNull(getClass().getResource("Images/available.jpeg")).toExternalForm());
-    //Moves
+
     private List<String> availableMoves;
     private final List<String> userMoves = new ArrayList<>();
     private final List<String> opponentMoves = new ArrayList<>();
@@ -62,23 +51,23 @@ public class Model {
 
 
     public Model() {
-        box1 = new SimpleObjectProperty<>(availableSpace);
-        box2 = new SimpleObjectProperty<>(availableSpace);
-        box3 = new SimpleObjectProperty<>(availableSpace);
-        box4 = new SimpleObjectProperty<>(availableSpace);
-        box5 = new SimpleObjectProperty<>(availableSpace);
-        box6 = new SimpleObjectProperty<>(availableSpace);
-        box7 = new SimpleObjectProperty<>(availableSpace);
-        box8 = new SimpleObjectProperty<>(availableSpace);
-        box9 = new SimpleObjectProperty<>(availableSpace);
-        hufflePuffLogo = new SimpleObjectProperty<>(hufflePuffImage);
-        slytherinLogo = new SimpleObjectProperty<>(slytherinImage);
-        ravenclawLogo = new SimpleObjectProperty<>(ravenClawImage);
-        gryffindorLogo = new SimpleObjectProperty<>(gryffindorImage);
-        userHouse = new SimpleObjectProperty<>(gryffindorImage);
-        opponentHouse = new SimpleObjectProperty<>(slytherinImage);
-        setUserMarker(gryffindorImage);
-        setOpponentMarker(slytherinImage);
+        box1 = new SimpleObjectProperty<>(images.getAvailableSpace());
+        box2 = new SimpleObjectProperty<>(images.getAvailableSpace());
+        box3 = new SimpleObjectProperty<>(images.getAvailableSpace());
+        box4 = new SimpleObjectProperty<>(images.getAvailableSpace());
+        box5 = new SimpleObjectProperty<>(images.getAvailableSpace());
+        box6 = new SimpleObjectProperty<>(images.getAvailableSpace());
+        box7 = new SimpleObjectProperty<>(images.getAvailableSpace());
+        box8 = new SimpleObjectProperty<>(images.getAvailableSpace());
+        box9 = new SimpleObjectProperty<>(images.getAvailableSpace());
+        hufflePuffLogo = new SimpleObjectProperty<>(images.getHufflePuffImage());
+        slytherinLogo = new SimpleObjectProperty<>(images.getSlytherinImage());
+        ravenclawLogo = new SimpleObjectProperty<>(images.getRavenClawImage());
+        gryffindorLogo = new SimpleObjectProperty<>(images.getGryffindorImage());
+        userHouse = new SimpleObjectProperty<>(images.getGryffindorImage());
+        opponentHouse = new SimpleObjectProperty<>(images.getSlytherinImage());
+        images.setUserMarker(images.gryffindorImage);
+        images.setOpponentMarker(images.getSlytherinImage());
         listOfBoxes.add(box1);
         listOfBoxes.add(box2);
         listOfBoxes.add(box3);
@@ -98,7 +87,7 @@ public class Model {
             userMove(boxId);
             isGameOver();
             toggleGameRunning();
-            userSound.play();
+            sounds.getUserSound().play();
             initializeComputerMove();
         }
     }
@@ -141,14 +130,14 @@ public class Model {
     }
 
     private void markUserMove(ObjectProperty<Image> boxToPaint) {
-        boxToPaint.set(userMarker);
+        boxToPaint.set(images.getUserMarker());
     }
 
     private void makeComputerMove(String computerMove) {
         markComputerMove(boxSelector(computerMove));
         opponentMoves.add(computerMove);
         availableMoves.remove(computerMove);
-        opponentSound.play();
+        sounds.getUserSound().play();
         isGameOver();
     }
 
@@ -168,11 +157,11 @@ public class Model {
     }
 
     private void markComputerMove(ObjectProperty<Image> boxToMark) {
-        boxToMark.set(computerMarker);
+        boxToMark.set(images.getComputerMarker());
     }
 
     private void markBoxAvailable(ObjectProperty<Image> boxToMark) {
-        boxToMark.set(availableSpace);
+        boxToMark.set(images.getAvailableSpace());
     }
 
     private void disableAllMoves() {
@@ -210,7 +199,7 @@ public class Model {
         setUserScore(userScore += 1);
         setPrintoutScoreForUser("Your wins: " + userScore);
         setIsButtonVisible(true);
-        winningSound.play();
+        sounds.getWinningSound().play();
     }
 
     public void computerWin() {
@@ -219,7 +208,7 @@ public class Model {
         setOpponentScore(opponentScore += 1);
         setPrintoutScoreForOpponent("Computer wins: " + opponentScore);
         setIsButtonVisible(true);
-        losingSound.play();
+        sounds.getLosingSound().play();
     }
 
     private void tie() {
@@ -250,13 +239,13 @@ public class Model {
     // Update house
     public void updateOpponentHouse(String house) {
         //todo bryta ut metod
-        setOpponentMarker(houseSelector(house));
+        images.setOpponentMarker(houseSelector(house));
         setOpponentHouse(houseSelector(house));
 
     }
 
     public void updateUserHouse(String house) {
-        setUserMarker(houseSelector(house));
+        images.setUserMarker(houseSelector(house));
         setUserHouse(houseSelector(house));
 
     }
@@ -264,10 +253,10 @@ public class Model {
     public Image houseSelector(String input) {
         Image house;
         switch (input) {
-            case "Ravenclaw" -> house = ravenClawImage;
-            case "Gryffindor" -> house = gryffindorImage;
-            case "Hufflepuff" -> house = hufflePuffImage;
-            case "Slytherin" -> house = slytherinImage;
+            case "Ravenclaw" -> house = images.getRavenClawImage();
+            case "Gryffindor" -> house = images.getGryffindorImage();
+            case "Hufflepuff" -> house = images.getHufflePuffImage();
+            case "Slytherin" -> house = images.getSlytherinImage();
             default -> throw new IllegalStateException("Unexpected value: " + input);
         }
         return house;
@@ -387,6 +376,8 @@ public class Model {
         this.box9.set(box9);
     }
 
+
+
     public String getWinningMessage() {
         return winningMessage.get();
     }
@@ -452,14 +443,9 @@ public class Model {
     }
 
 
-    public void setUserMarker(Image userMarker) {
-        this.userMarker = userMarker;
-    }
 
 
-    public void setOpponentMarker(Image computerMarker) {
-        this.computerMarker = computerMarker;
-    }
+
 
 
     public void setUserHouse(Image userHouse) {
