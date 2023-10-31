@@ -14,24 +14,19 @@ public class Model {
     private final int TOTAL_BOXES = 9;
     Images images = new Images();
     Sounds sounds = new Sounds();
-
     Random random = new Random();
+    Service service = new Service();
     FactoryMethods factoryMethods = new FactoryMethods();
     private final BooleanProperty isButtonVisible = new SimpleBooleanProperty(false);
-
-    //Audio
-
     private List<String> availableMoves;
     private final List<String> userMoves = new ArrayList<>();
     private final List<String> opponentMoves = new ArrayList<>();
     private final BooleanProperty gameRunning = new SimpleBooleanProperty(false);
-   //Scores
     private int opponentScore = 0;
     private int userScore = 0;
     private final StringProperty printoutScoreForUser = new SimpleStringProperty("");
     private final StringProperty printoutScoreForOpponent = new SimpleStringProperty("");
     private final StringProperty winningMessage = new SimpleStringProperty("No Winner Yet");
-
     private final ObjectProperty<Image> box1;
     private final ObjectProperty<Image> box2;
     private final ObjectProperty<Image> box3;
@@ -238,36 +233,17 @@ public class Model {
 
     // Update house
     public void updateOpponentHouse(String house) {
-        //todo bryta ut metod
-        images.setOpponentMarker(houseSelector(house));
-        setOpponentHouse(houseSelector(house));
-
+        images.setOpponentMarker(service.houseSelector(house));
+        setOpponentHouse(service.houseSelector(house));
     }
 
     public void updateUserHouse(String house) {
-        images.setUserMarker(houseSelector(house));
-        setUserHouse(houseSelector(house));
-
+        images.setUserMarker(service.houseSelector(house));
+        setUserHouse(service.houseSelector(house));
     }
-
-    public Image houseSelector(String input) {
-        Image house;
-        switch (input) {
-            case "Ravenclaw" -> house = images.getRavenClawImage();
-            case "Gryffindor" -> house = images.getGryffindorImage();
-            case "Hufflepuff" -> house = images.getHufflePuffImage();
-            case "Slytherin" -> house = images.getSlytherinImage();
-            default -> throw new IllegalStateException("Unexpected value: " + input);
-        }
-        return house;
-    }
-
-
 
 
     //  GETTERS  &  SETTERS
-
-
     public Image getBox1() {
         return box1.get();
     }
