@@ -6,6 +6,8 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javafx.beans.property.ObjectProperty;
+
 
 
 //Todo cara konsekvent i opponent eller computer
@@ -16,9 +18,9 @@ public class Model {
     Sounds sounds = new Sounds();
     Random random = new Random();
     Service service = new Service();
+    GameLogic gameLogic = new GameLogic();
     FactoryMethods factoryMethods = new FactoryMethods();
     private final BooleanProperty isButtonVisible = new SimpleBooleanProperty(false);
-    private List<String> availableMoves;
     private final List<String> userMoves = new ArrayList<>();
     private final List<String> opponentMoves = new ArrayList<>();
     private final BooleanProperty gameRunning = new SimpleBooleanProperty(false);
@@ -27,56 +29,31 @@ public class Model {
     private final StringProperty printoutScoreForUser = new SimpleStringProperty("");
     private final StringProperty printoutScoreForOpponent = new SimpleStringProperty("");
     private final StringProperty winningMessage = new SimpleStringProperty("No Winner Yet");
-    private final ObjectProperty<Image> box1;
-    private final ObjectProperty<Image> box2;
-    private final ObjectProperty<Image> box3;
-    private final ObjectProperty<Image> box4;
-    private final ObjectProperty<Image> box5;
-    private final ObjectProperty<Image> box6;
-    private final ObjectProperty<Image> box7;
-    private final ObjectProperty<Image> box8;
-    private final ObjectProperty<Image> box9;
-    private final ObjectProperty<Image> hufflePuffLogo;
-    private final ObjectProperty<Image> slytherinLogo;
-    private final ObjectProperty<Image> ravenclawLogo;
-    private final ObjectProperty<Image> gryffindorLogo;
-    private final ObjectProperty<Image> userHouse;
-    private final ObjectProperty<Image> opponentHouse;
-    private final List<ObjectProperty<Image>> listOfBoxes = new ArrayList<>();
+    private final ObjectProperty<Image> box1 = new SimpleObjectProperty<>(images.getAvailableSpace());
+    private final ObjectProperty<Image> box2 = new SimpleObjectProperty<>(images.getAvailableSpace());
+    private final ObjectProperty<Image> box3 = new SimpleObjectProperty<>(images.getAvailableSpace());
+    private final ObjectProperty<Image> box4 = new SimpleObjectProperty<>(images.getAvailableSpace());
+    private final ObjectProperty<Image> box5 = new SimpleObjectProperty<>(images.getAvailableSpace());
+    private final ObjectProperty<Image> box6 = new SimpleObjectProperty<>(images.getAvailableSpace());
+    private final ObjectProperty<Image> box7 = new SimpleObjectProperty<>(images.getAvailableSpace());
+    private final ObjectProperty<Image> box8 = new SimpleObjectProperty<>(images.getAvailableSpace());
+    private final ObjectProperty<Image> box9 = new SimpleObjectProperty<>(images.getAvailableSpace());
+    private final List<ObjectProperty<Image>> listOfBoxes = List.of(
+            box1, box2, box3, box4, box5, box6, box7, box8, box9);
 
+    private final ObjectProperty<Image> hufflePuffLogo = new SimpleObjectProperty<>(images.getHufflePuffImage());
+    private final ObjectProperty<Image> slytherinLogo = new SimpleObjectProperty<>(images.getSlytherinImage());
+    private final ObjectProperty<Image> ravenclawLogo = new SimpleObjectProperty<>(images.getRavenClawImage());
+    private final ObjectProperty<Image> gryffindorLogo = new SimpleObjectProperty<>(images.getGryffindorImage());
+    private final ObjectProperty<Image> userHouse = new SimpleObjectProperty<>(images.getGryffindorImage());
+    private final ObjectProperty<Image> opponentHouse = new SimpleObjectProperty<>(images.getSlytherinImage());
 
     public Model() {
-        box1 = new SimpleObjectProperty<>(images.getAvailableSpace());
-        box2 = new SimpleObjectProperty<>(images.getAvailableSpace());
-        box3 = new SimpleObjectProperty<>(images.getAvailableSpace());
-        box4 = new SimpleObjectProperty<>(images.getAvailableSpace());
-        box5 = new SimpleObjectProperty<>(images.getAvailableSpace());
-        box6 = new SimpleObjectProperty<>(images.getAvailableSpace());
-        box7 = new SimpleObjectProperty<>(images.getAvailableSpace());
-        box8 = new SimpleObjectProperty<>(images.getAvailableSpace());
-        box9 = new SimpleObjectProperty<>(images.getAvailableSpace());
-        hufflePuffLogo = new SimpleObjectProperty<>(images.getHufflePuffImage());
-        slytherinLogo = new SimpleObjectProperty<>(images.getSlytherinImage());
-        ravenclawLogo = new SimpleObjectProperty<>(images.getRavenClawImage());
-        gryffindorLogo = new SimpleObjectProperty<>(images.getGryffindorImage());
-        userHouse = new SimpleObjectProperty<>(images.getGryffindorImage());
-        opponentHouse = new SimpleObjectProperty<>(images.getSlytherinImage());
-        images.setUserMarker(images.gryffindorImage);
+        images.setUserMarker(images.getGryffindorImage());
         images.setOpponentMarker(images.getSlytherinImage());
-        listOfBoxes.add(box1);
-        listOfBoxes.add(box2);
-        listOfBoxes.add(box3);
-        listOfBoxes.add(box4);
-        listOfBoxes.add(box5);
-        listOfBoxes.add(box6);
-        listOfBoxes.add(box7);
-        listOfBoxes.add(box8);
-        listOfBoxes.add(box9);
-        initializeAvailableMoves();
+        gameLogic.initializeAvailableMoves();
     }
 
-
-    // Inputs from controller
     public void userClick(String boxId) {
         if (isValidMove(boxId)) {
             userMove(boxId);
@@ -85,10 +62,6 @@ public class Model {
             sounds.getUserSound().play();
             initializeComputerMove();
         }
-    }
-
-    private void initializeAvailableMoves() {
-        availableMoves = factoryMethods.getAvailableMoves();
     }
 
     public void restartGame() {
@@ -106,7 +79,8 @@ public class Model {
     }
 
     private void resetAvailableMoves() {
-        initializeAvailableMoves();
+        gameLogic.getAvailableMoves().clear();
+        gameLogic.initializeAvailableMoves();
     }
 
     public void resetScore() {
@@ -116,33 +90,14 @@ public class Model {
         setPrintoutScoreForOpponent("Opponent wins: " + opponentScore);
     }
 
-
-    //MOVES
     private void userMove(String userMove) {
         markUserMove(boxSelector(userMove));
         userMoves.add(userMove);
-        availableMoves.remove(userMove);
+        gameLogic.getAvailableMoves().remove(userMove);
     }
 
-    private void markUserMove(ObjectProperty<Image> boxToPaint) {
+    public void markUserMove(ObjectProperty<Image> boxToPaint) {
         boxToPaint.set(images.getUserMarker());
-    }
-
-    private void makeComputerMove(String computerMove) {
-        markComputerMove(boxSelector(computerMove));
-        opponentMoves.add(computerMove);
-        availableMoves.remove(computerMove);
-        sounds.getUserSound().play();
-        isGameOver();
-    }
-
-
-    private String generateComputerMove() {
-        if (availableMoves.isEmpty()) {
-            return null; // Or some other appropriate action
-        }
-        int move = random.nextInt(availableMoves.size());
-        return availableMoves.get(move);
     }
 
     private void initializeComputerMove() {
@@ -151,43 +106,51 @@ public class Model {
             makeComputerMove(computerMove);
     }
 
-    private void markComputerMove(ObjectProperty<Image> boxToMark) {
+    private String generateComputerMove() {
+        if (gameLogic.getAvailableMoves().isEmpty()) {
+            return null;
+        }
+        int move = random.nextInt(gameLogic.getAvailableMoves().size());
+        return gameLogic.getAvailableMoves().get(move);
+    }
+
+    private void makeComputerMove(String computerMove) {
+        markComputerMove(boxSelector(computerMove));
+        opponentMoves.add(computerMove);
+        gameLogic.getAvailableMoves().remove(computerMove);
+        sounds.getUserSound().play();
+        isGameOver();
+    }
+
+    public void markComputerMove(ObjectProperty<Image> boxToMark) {
         boxToMark.set(images.getComputerMarker());
     }
+
+
+
 
     private void markBoxAvailable(ObjectProperty<Image> boxToMark) {
         boxToMark.set(images.getAvailableSpace());
     }
 
     private void disableAllMoves() {
-        availableMoves.clear();
+        gameLogic.getAvailableMoves().clear();
     }
-
-
-    // Checks
-    public boolean winCheck(List<String> movesToCheck) {
-        return factoryMethods.winningCombinations().stream()
-                .anyMatch(movesToCheck::containsAll
-                );
-    }
-
 
     public void isGameOver() {
-        if (winCheck(opponentMoves)) {
+        if (gameLogic.winCheck(opponentMoves)) {
             computerWin();
-        } else if (winCheck(userMoves)) {
+        } else if (gameLogic.winCheck(userMoves)) {
             userWin();
-        } else if (availableMoves.isEmpty()) {
+        } else if (gameLogic.getAvailableMoves().isEmpty()) {
             tie();
         }
     }
 
     public boolean isValidMove(String move) {
-        return availableMoves.contains(move);
+        return gameLogic.getAvailableMoves().contains(move);
     }
 
-
-    // OUTCOMES
     public void userWin() {
         disableAllMoves();
         setWinningMessage("You won this match!");
@@ -213,7 +176,6 @@ public class Model {
         setIsButtonVisible(true);
     }
 
-    // BoxSelector
     private ObjectProperty<Image> boxSelector(String id) {
         ObjectProperty<Image> box;
         switch (id) {
@@ -352,8 +314,6 @@ public class Model {
         this.box9.set(box9);
     }
 
-
-
     public String getWinningMessage() {
         return winningMessage.get();
     }
@@ -414,15 +374,6 @@ public class Model {
         this.printoutScoreForOpponent.set(printoutScoreForOpponent);
     }
 
-    public List<String> getAvailableMoves() {
-        return availableMoves;
-    }
-
-
-
-
-
-
 
     public void setUserHouse(Image userHouse) {
         this.userHouse.set(userHouse);
@@ -450,7 +401,7 @@ public class Model {
 
 
     public boolean isGameRunning() {
-        return TOTAL_BOXES > availableMoves.size();
+        return TOTAL_BOXES > gameLogic.getAvailableMoves().size();
     }
 
     public void toggleGameRunning() {

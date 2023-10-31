@@ -1,9 +1,11 @@
 package com.example.tictactoev4;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.image.Image;
 
 public class Service {
     Images images = new Images();
+
     public Image houseSelector(String input) {
         Image house;
         switch (input) {
@@ -15,4 +17,10 @@ public class Service {
         }
         return house;
     }
+
+
+
+
+
+
 }

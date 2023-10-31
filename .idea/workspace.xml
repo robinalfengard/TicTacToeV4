@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b115c029-79e8-4823-81da-c781dc553119" name="Changes" comment="added sound + fixed bug with disabled combobox">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/GameLogic.java" beforeDir="false" />
+    <list default="true" id="b115c029-79e8-4823-81da-c781dc553119" name="Changes" comment="organize">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/GameLogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Service.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +242,14 @@
       <option name="presentableId" value="LOCAL−00012" />
       <updated>1698685277613</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL−00013" summary="organize">
+      <option name="closed" value="true" />
+      <created>1698762344299</created>
+      <option name="number" value="LOCAL−00013" />
+      <option name="presentableId" value="LOCAL−00013" />
+      <updated>1698762344299</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -257,6 +265,7 @@
     <MESSAGE value="clean up" />
     <MESSAGE value="added functionality to switch houses to play as" />
     <MESSAGE value="added sound + fixed bug with disabled combobox" />
-    <option name="LAST_COMMIT_MESSAGE" value="added sound + fixed bug with disabled combobox" />
+    <MESSAGE value="organize" />
+    <option name="LAST_COMMIT_MESSAGE" value="organize" />
   </component>
 </project>
