@@ -12,7 +12,7 @@ public class Controller {
     Model model = new Model();
 
     public void initialize() {
-        houseComboBoxForOpponent.disableProperty().bind(getModel().gameRunningProperty());
+        houseComboBoxForOpponent.disableProperty().bind(model.gameRunningProperty());
         houseComboBoxForUser.disableProperty().bind(model.gameRunningProperty());
     }
 

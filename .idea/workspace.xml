@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b115c029-79e8-4823-81da-c781dc553119" name="Changes" comment="organize">
+    <list default="true" id="b115c029-79e8-4823-81da-c781dc553119" name="Changes" comment="fix tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Images.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Images.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tictactoev4/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/tictactoev4/ModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/tictactoev4/ModelTest.java" afterDir="false" />
     </list>
@@ -60,6 +61,19 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.ModelTest">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.tictactoev4.App" />
+      <module name="tictactoev4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tictactoev4.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ModelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tictactoev4" />
       <extension name="coverage">
@@ -123,29 +137,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ModelTest.winCheckShouldReturnTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tictactoev4" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.tictactoev4.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.tictactoev4" />
-      <option name="MAIN_CLASS_NAME" value="com.example.tictactoev4.ModelTest" />
-      <option name="METHOD_NAME" value="winCheckShouldReturnTrue" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <list>
+      <item itemvalue="Application.App" />
+      <item itemvalue="JUnit.ModelTest.winCheckShouldReturnFalse" />
+      <item itemvalue="JUnit.ModelTest.isValidShouldReturnFalse" />
+      <item itemvalue="JUnit.ModelTest.isValidShouldReturnTrue" />
+      <item itemvalue="JUnit.ModelTest" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ModelTest" />
+        <item itemvalue="JUnit.ModelTest.winCheckShouldReturnFalse" />
+        <item itemvalue="Application.App" />
         <item itemvalue="JUnit.ModelTest.isValidShouldReturnTrue" />
         <item itemvalue="JUnit.ModelTest.isValidShouldReturnFalse" />
-        <item itemvalue="JUnit.ModelTest.winCheckShouldReturnTrue" />
-        <item itemvalue="JUnit.ModelTest.winCheckShouldReturnFalse" />
       </list>
     </recent_temporary>
   </component>

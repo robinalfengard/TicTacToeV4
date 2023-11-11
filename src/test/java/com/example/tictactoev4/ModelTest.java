@@ -21,19 +21,27 @@ class ModelTest {
 
     @Test void winCheckShouldReturnTrue(){
         List<String> shouldWin = new ArrayList<>();
+        shouldWin.add("box1");
         shouldWin.add("box2");
         shouldWin.add("box3");
-        shouldWin.add("box1");
         assertTrue(gameLogic.winCheck(shouldWin));
     }
 
-    @Test void isValidShouldReturnFalse(){
+    @Test void winCheckWithBoxesInNonOrderShouldReturnTrue(){
+        List<String> shouldWin = new ArrayList<>();
+        shouldWin.add("box3");
+        shouldWin.add("box1");
+        shouldWin.add("box2");
+        assertTrue(gameLogic.winCheck(shouldWin));
+    }
+
+    @Test void isValidMoveShouldReturnFalse(){
         gameLogic.initializeAvailableMoves();
         gameLogic.getAvailableMoves().remove("box1");
         assertFalse(gameLogic.isValidMove("box1"));
     }
 
-    @Test void isValidShouldReturnTrue(){
+    @Test void isValidMoveShouldReturnTrue(){
         gameLogic.initializeAvailableMoves();
         assertTrue(gameLogic.isValidMove("box1"));
     }

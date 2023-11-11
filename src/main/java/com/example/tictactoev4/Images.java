@@ -48,7 +48,6 @@ public class Images {
         this.userMarker = userMarker;
     }
 
-
     public void setOpponentMarker(Image computerMarker) {
         this.computerMarker = computerMarker;
     }

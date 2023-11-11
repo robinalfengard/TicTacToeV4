@@ -34,10 +34,6 @@ public class Model {
     private final List<ObjectProperty<Image>> listOfBoxes = List.of(
             box1, box2, box3, box4, box5, box6, box7, box8, box9);
 
-    private final ObjectProperty<Image> hufflePuffLogo = new SimpleObjectProperty<>(images.getHufflePuffImage());
-    private final ObjectProperty<Image> slytherinLogo = new SimpleObjectProperty<>(images.getSlytherinImage());
-    private final ObjectProperty<Image> ravenclawLogo = new SimpleObjectProperty<>(images.getRavenClawImage());
-    private final ObjectProperty<Image> gryffindorLogo = new SimpleObjectProperty<>(images.getGryffindorImage());
     private final ObjectProperty<Image> userHouse = new SimpleObjectProperty<>(images.getGryffindorImage());
     private final ObjectProperty<Image> opponentHouse = new SimpleObjectProperty<>(images.getSlytherinImage());
 
@@ -137,8 +133,6 @@ public class Model {
             tie();
         }
     }
-
-
 
     public void userWin() {
         disableAllMoves();
